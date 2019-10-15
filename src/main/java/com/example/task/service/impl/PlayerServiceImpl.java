@@ -7,45 +7,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
     PlayerRepository playerRepository;
 
-    private List<Player> players;
-
-
     @Override
-    public List<Player> findPlayerByNickname(String nickname) {
-        List<Player> result = players.stream()
-                .filter(player -> player.getNickname().equals(nickname))
-                .collect(Collectors.toList());
-        return result;
+    public List<Player> findByNickname(String nickname) {
+        return playerRepository.findByNickname(nickname);
     }
 
     @Override
-    public List<Player> findPlayerByLvl(int lvl) {
-        List<Player> result = players.stream()
-                .filter(player -> player.getLvl() == lvl)
-                .collect(Collectors.toList());
-        return result;
+    public List<Player> findByLvl(int lvl) {
+        return playerRepository.findByLvl(lvl);
     }
 
     @Override
-    public List<Player> findPlayerByCharacter(String charecter) {
-        List<Player> result = players.stream()
-                .filter(player -> player.getCharacter().equals(charecter))
-                .collect(Collectors.toList());
-        return result;
+    public List<Player> findByCharacter(String character) {
+        return playerRepository.findByCharacter(character);
     }
 
     @Override
-    public List<Player> findPlayerByGuild(String guild) {
-        List<Player> result = players.stream()
-                .filter(player -> player.getGuild().equals(guild))
-                .collect(Collectors.toList());
-        return result;
+    public List<Player> findByGuild(String guild) {
+        return playerRepository.findByGuild(guild);
+    }
+
+    @Override
+    public List<Player> findById(long id) {
+        return playerRepository.findById(id);
+    }
+
+    public List<Player> findAll(){
+        return playerRepository.findAll();
+    }
+
+    public void save(Player player){
+        playerRepository.save(player);
+    }
+
+    public void deleteById(long id){
+        playerRepository.deleteById(id);
     }
 }

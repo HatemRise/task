@@ -10,4 +10,7 @@ import java.util.List;
 public interface PlayerRepository extends JpaRepository<Player, Long> {
     List<Player> findByNickname(String nickname);
     List<Player> findById(long id);
+    List<Player> findByCharacter(String character);
+    List<Player> findByGuild(String guild);
+    List<Player> findByLvl(int lvl);
 }
