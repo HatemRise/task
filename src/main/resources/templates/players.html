@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<table>
+    <tr>
+        <th>id</th>
+        <th>Nickname</th>
+        <th>Character</th>
+        <th>lvl</th>
+        <th>Guild</th>
+    </tr>
+    <tr th:each = "player : ${player}">
+            <td th:utext="${player.id}" ></td>
+            <td th:utext="${player.nickname}"></td>
+            <td th:utext="${player.character}"></td>
+            <td th:utext="${player.lvl}"></td>
+            <td th:utext="${player.guild}"></td>
+    </tr>
+</table>
+<form method="post" action="add">
+    <input type="text" name="Nickname" placeholder="Enter nickname">
+    <input type="text" name="Character" placeholder="Enter charter">
+    <input type="number" name="Level" placeholder="Enter lvl">
+    <input type="text" name="Guild" placeholder="Enter Guild name">
+    <button type="submit">Submit</button>
+</form>
+<form method="post" action="filter">
+    <input type="text" name="Nickname" placeholder="Enter nickname">
+    <button type="submit">Find</button>
+</form>
+<form method="post" action="delete">
+    <input type="number" name="id" placeholder="Enter id">
+    <button type="submit">Delete</button>
+</form>
+<form method="post" action="change">
+    <input type="number" name="id" placeholder="Enter id">
+    <button type="submit">Change</button>
+</form>
+</body>
+</html>
