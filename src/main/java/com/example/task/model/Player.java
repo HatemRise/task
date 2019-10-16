@@ -11,14 +11,17 @@ public class Player {
     private long id;
 
     @NotNull
-    @Column
+    @Column(unique = true)
     private String nickname;
+
     @NotNull
     @Column
     private String character;
+
     @NotNull
     @Column
     private int lvl;
+
     @Column
     private String guild;
 

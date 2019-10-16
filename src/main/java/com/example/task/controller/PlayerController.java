@@ -3,6 +3,7 @@ package com.example.task.controller;
 import com.example.task.model.Player;
 import com.example.task.service.impl.PlayerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,7 +23,7 @@ public class PlayerController {
     }
 
     @GetMapping("/")
-    public String getPlayers(Map<String, Object> model){
+    public String getPlayers(Map<String, Object> model, Authentication authentication){
         List<Player> players = playerService.findAll();
         model.put("player", players);
         return "players";

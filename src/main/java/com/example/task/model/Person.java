@@ -3,14 +3,14 @@ package com.example.task.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 @Entity
-@Table(name = "Persons")
+@Table(name = "persons")
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column
+    @Column(unique = true)
     @NotNull
     private String login;
 
@@ -18,17 +18,21 @@ public class Person {
     @NotNull
     private String password;
 
-    @Column
+    @Column(unique = true)
     @NotNull
     private String email;
+
+    @Column
+    private String userRole;
 
     public Person() {
     }
 
-    public Person(String login, String password, String email) {
+    public Person(String login, String password, String email, String userRole) {
         this.login = login;
         this.password = password;
         this.email = email;
+        this.userRole = userRole;
     }
 
     public String getLogin() {
@@ -53,5 +57,13 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 }
