@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "persons")
-public class Person {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,16 +23,16 @@ public class Person {
     private String email;
 
     @Column
-    private String userRole;
+    private String role;
 
-    public Person() {
+    public User() {
     }
 
-    public Person(String login, String password, String email, String userRole) {
+    public User(@NotNull String login, @NotNull String password, @NotNull String email, String userRole) {
         this.login = login;
         this.password = password;
         this.email = email;
-        this.userRole = userRole;
+        this.role = userRole;
     }
 
     public String getLogin() {
@@ -60,10 +60,10 @@ public class Person {
     }
 
     public String getUserRole() {
-        return userRole;
+        return role;
     }
 
     public void setUserRole(String userRole) {
-        this.userRole = userRole;
+        this.role = userRole;
     }
 }

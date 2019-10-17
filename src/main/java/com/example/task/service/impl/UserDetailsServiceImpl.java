@@ -1,6 +1,6 @@
 package com.example.task.service.impl;
 
-import com.example.task.model.Person;
+import com.example.task.model.User;
 import com.example.task.model.UserPrincipal;
 import com.example.task.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +22,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new UserPrincipal(userRepository.findByLogin(login).orElseThrow(()->new UsernameNotFoundException(login)));
     }
 
-    public void save(Person person){
+    public void save(User person){
         userRepository.save(person);
     }
 
-    public List<Person> findAllByLogin(String login){
+    public List<User> findAllByLogin(String login){
         return userRepository.findAllByLogin(login);
     }
 
-    public List<Person> findAllByEmail(String email){
+    public List<User> findAllByEmail(String email){
         return userRepository.findAllByEmail(email);
     }
 }
