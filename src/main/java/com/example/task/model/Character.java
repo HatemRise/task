@@ -9,7 +9,7 @@ public class Character {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "nickname")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "lvl")
@@ -19,7 +19,7 @@ public class Character {
     private String className;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner")
     private User owner;
 
 

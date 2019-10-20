@@ -33,7 +33,7 @@ public class CharacterController {
         }
         if(authentication.isAuthenticated()){
             model.addAttribute("user", ((UserPrincipal)authentication.getPrincipal())
-                    .getUser().getLogin());
+                    .getUser());
         }
         model.addAttribute("character", characters );
         model.addAttribute("characterClass", className);

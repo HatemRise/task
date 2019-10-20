@@ -1,7 +1,9 @@
 package com.example.task.controller;
 
 import com.example.task.model.Character;
+import com.example.task.model.User;
 import com.example.task.model.UserPrincipal;
+import com.example.task.repository.UserRepository;
 import com.example.task.service.impl.CharacterServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,12 +13,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MyPageController {
 
     @Autowired
     private CharacterServiceImpl characterService;
+    @Autowired
+    private UserRepository userRepository;
 
     public List<String> className = Arrays.asList(
             "Archer", "Berserker", "Dark Knight", "Kunoichi", "Lahn", "Maehwa", "Musa",
@@ -28,11 +33,11 @@ public class MyPageController {
         List<Character> characters = characterService.findAllByOwner(((UserPrincipal)authentication
                 .getPrincipal()).getUser());
         if(characters.isEmpty()){
-            model.addAttribute("message", "You have no characters" );
+            model.addAttribute("errorMessage", "You have no characters" );
         }
         if(authentication.isAuthenticated()){
             model.addAttribute("user", ((UserPrincipal)authentication.getPrincipal())
-                    .getUser().getLogin());
+                    .getUser());
         }
         model.addAttribute("character", characters );
         model.addAttribute("characterClass", className);
@@ -40,7 +45,7 @@ public class MyPageController {
     }
 
     @PostMapping("/MyPage/add")
-    public String addCharacter(@RequestParam String Nickname, @RequestParam int Level, @RequestParam String ClassName, Authentication authentication, Model model) throws ClassNotFoundException {
+    public String addCharacter(@RequestParam String Nickname, @RequestParam int Level, @RequestParam String ClassName, Authentication authentication, Map<String, Object> model) throws ClassNotFoundException {
         Character character = new Character(Nickname, Level, ((UserPrincipal)authentication.getPrincipal()).getUser(), ClassName);
         characterService.save(character);
         return "redirect:/MyPage";
@@ -54,7 +59,7 @@ public class MyPageController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
-    public String deleteCharacter(@RequestParam long delete, Model model){
+    public String deleteCharacter(@RequestParam long delete, Map<String, Object> model){
         characterService.deleteById(delete);
         return "redirect:/MyPage";
     }
@@ -65,6 +70,14 @@ public class MyPageController {
         character.setName(Nickname);
         character.setLvl(Lvl);
         characterService.save(character);
+        return "redirect:/MyPage";
+    }
+
+    @PostMapping("/MyPage/guild")
+    public String changeGuild(@RequestParam String guild, Authentication authentication, Model model){
+        User user = ((UserPrincipal) authentication.getPrincipal()).getUser();
+        user.setGuild(guild);
+        userRepository.save(user);
         return "redirect:/MyPage";
     }
 }
