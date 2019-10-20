@@ -25,6 +25,9 @@ public class User {
     @Column
     private String role;
 
+    @Column
+    private String guild = "-";
+
     public User() {
     }
 
@@ -65,5 +68,26 @@ public class User {
 
     public void setUserRole(String userRole) {
         this.role = userRole;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getGuild() {
+        return guild;
+    }
+
+    public void setGuild(String guild) {
+        this.guild = guild;
+    }
+
+    @Override
+    public String toString() {
+        return login;
     }
 }

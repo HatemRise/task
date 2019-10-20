@@ -50,11 +50,11 @@ public class UserPrincipal implements UserDetails {
         return true;
     }
 
-    public User getPerson() {
+    public User getUser() {
         return user;
     }
 
-    public void setPerson(User person) {
+    public void setUser(User person) {
         this.user = person;
     }
 }

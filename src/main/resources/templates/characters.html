@@ -14,21 +14,26 @@
         <th>Nickname</th>
         <th>Character</th>
         <th>lvl</th>
+        <th>Owner</th>
         <th>Guild</th>
     </tr>
-    <tr th:each = "player : ${player}">
-            <td th:utext="${player.id}" ></td>
-            <td th:utext="${player.nickname}"></td>
-            <td th:utext="${player.character}"></td>
-            <td th:utext="${player.lvl}"></td>
-            <td th:utext="${player.guild}"></td>
+    <tr th:each = "character : ${character}">
+        <td th:utext="${character.id}" ></td>
+        <td th:utext="${character.name}"></td>
+        <td th:utext="${character.className}"></td>
+        <td th:utext="${character.lvl}"></td>
+        <td th:utext="${character.owner}"></td>
+        <td th:utext="${character.owner.guild}"></td>
+
     </tr>
 </table>
+    <div class="alert alert-danger" role="alert" th:if="${message}" th:utext="${message}"></div>
 <form method="post" action="add">
     <input type="text" name="Nickname" placeholder="Nickname" required="" autofocus="">
-    <input type="text" name="Character" placeholder="Character" required="" autofocus="">
+    <select name="ClassName" placeholder="Archer" required="" autofocus="">
+        <option th:each="characterClass : ${characterClass}" th:utext="${characterClass}"></option>
+    </select>
     <input type="number" name="Level" placeholder="Level" required="" autofocus="">
-    <input type="text" name="Guild" placeholder="Guild" required="" autofocus="">
     <button type="submit">Submit</button>
 </form>
 <form method="post" action="filter">
