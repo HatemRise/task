@@ -1,6 +1,7 @@
 package com.example.task.service.impl;
 
 import com.example.task.model.Character;
+import com.example.task.model.User;
 import com.example.task.repository.CharacterRepository;
 import com.example.task.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,16 @@ public class CharacterServiceImpl implements CharacterService {
     CharacterRepository characterRepository;
 
     @Override
-    public List<Character> findById(long id) {
+    public Character findById(long id) {
         return characterRepository.findById(id);
     }
 
     public List<Character> findAll(){
         return characterRepository.findAll();
+    }
+
+    public List<Character> findAllByOwner(User user){
+        return characterRepository.findAllByOwner(user);
     }
 
     public void save(Character character){

@@ -8,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,21 +26,18 @@ public class CharacterController {
     );
 
     @GetMapping("/")
-    public String getCharacter(Model model, Authentication authentication){
+    public String getCharacters(Model model, Authentication authentication){
         List<Character> characters = characterService.findAll();
         if(characters.isEmpty()){
             model.addAttribute("message", "Out of data" );
         }
+        if(authentication.isAuthenticated()){
+            model.addAttribute("user", ((UserPrincipal)authentication.getPrincipal())
+                    .getUser().getLogin());
+        }
         model.addAttribute("character", characters );
         model.addAttribute("characterClass", className);
         return "characters";
-    }
-
-    @PostMapping("add")
-    public String add(@RequestParam String Nickname, @RequestParam int Level, @RequestParam String ClassName, Authentication authentication, Model model) throws ClassNotFoundException {
-        Character character = new Character(Nickname, Level, ((UserPrincipal)authentication.getPrincipal()).getUser(), ClassName);
-        characterService.save(character);
-        return "redirect:/";
     }
 
     @PostMapping("filter")
@@ -50,7 +46,7 @@ public class CharacterController {
         return "characters";
     }
     @PostMapping("delete")
-    public String delete(@RequestParam long id, Model model){
+    public String deleteCharacter(@RequestParam long id, Model model){
         characterService.deleteById(id);
         List<Character> character = characterService.findAll();
         if(character.isEmpty()){
@@ -58,19 +54,6 @@ public class CharacterController {
         }else {
             model.addAttribute("player", character);
         }
-        return "redirect:/";
-    }
-
-    @PostMapping("change")
-    public String change(@RequestParam long id, Model model){
-        List<Character> character = characterService.findById(id);
-        model.addAttribute("player", character);
-        return "change";
-    }
-
-    @PostMapping("ok")
-    public String applyChange(Model model, @ModelAttribute Character character){
-        characterService.save(character);
         return "redirect:/";
     }
 }

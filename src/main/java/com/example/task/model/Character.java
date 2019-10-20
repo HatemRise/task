@@ -19,7 +19,7 @@ public class Character {
     private String className;
 
     @ManyToOne
-    @JoinColumn(name = "character_owner")
+    @JoinColumn(name = "owner_id")
     private User owner;
 
 
@@ -80,10 +80,5 @@ public class Character {
 
     public void setClassName(String className) {
         this.className = className;
-    }
-
-    @Column(name = "character_class")
-    public String getCharacterClass(){
-        return this.getClass().getSimpleName();
     }
 }

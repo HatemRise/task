@@ -4,18 +4,17 @@
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
-    <form method="post" action="ok" th:each = "player : ${player}">
-        <input hidden type="number" name="Id" th:value = "${player.id}">
-        <input type="text" name="Nickname" th:value = "${player.nickname}">
-        <input type="text" name="Character" th:value = "${player.character}">
-        <input type="number" name="Lvl" th:value = "${player.lvl}">
-        <input type="text" name="Guild" th:value = "${player.guild}">
-        <button type="submit">Submit</button>
-
+<body style="padding: 0">
+<div class="header" style="position: relative top: 50%; background:rgba(0,0,0,0.4)">
+    <button class="btn-lg btn-primary" type="submit" style="position: relative" onclick="window.location.href='/'">Main page</button>
+    <button class="btn-lg btn-primary" type="submit" style="position: relative; left: 87%" onclick="window.location.href='/MyPage'">My page</button>
+</div>
+    <form method="post" action="ok" th:each = "character : ${character}">
+        <input hidden type="number" name="Id" th:value = "${character.id}">
+        <input type="text" name="Nickname" th:value = "${character.name}">
+        <input type="number" name="Lvl" th:value = "${character.lvl}">
+        <button type="submit">Change</button>
     </form>
-    <form method="get" action="cancel">
-        <button type="submit">Cancel</button>
-    </form>
+    <button type="button" onclick="window.location.href='/MyPage'">Cancel</button>
 </body>
 </html>

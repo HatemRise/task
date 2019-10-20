@@ -6,7 +6,12 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
 </head>
-<body>
+<body style="padding: 0">
+<div class="header" style="position: relative top: 50%; background:rgba(0,0,0,0.4); text-align: center">
+    <button class="btn-lg btn-primary" type="submit" style="display: inline-block; float: left" onclick="window.location.href='/'">Main page</button>
+    <h1 th:utext="${user}" style="display: inline-block"></h1>
+    <button class="btn-lg btn-primary" type="submit" style="display: inline-block; float: right" onclick="window.location.href='/MyPage'">My page</button>
+</div>
 <div class="container">
 <table width="100%">
     <tr>
@@ -28,27 +33,10 @@
     </tr>
 </table>
     <div class="alert alert-danger" role="alert" th:if="${message}" th:utext="${message}"></div>
-<form method="post" action="add">
-    <input type="text" name="Nickname" placeholder="Nickname" required="" autofocus="">
-    <select name="ClassName" placeholder="Archer" required="" autofocus="">
-        <option th:each="characterClass : ${characterClass}" th:utext="${characterClass}"></option>
-    </select>
-    <input type="number" name="Level" placeholder="Level" required="" autofocus="">
-    <button type="submit">Submit</button>
-</form>
 <form method="post" action="filter">
     <input type="text" name="Nickname" placeholder="Enter nickname">
     <button type="submit">Find</button>
 </form>
-<form method="post" action="delete">
-    <input type="number" name="id" placeholder="Enter id">
-    <button type="submit">Delete</button>
-</form>
-<form method="post" action="change">
-    <input type="number" name="id" placeholder="Enter id">
-    <button type="submit">Change</button>
-</form>
-
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>

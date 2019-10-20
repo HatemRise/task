@@ -2,6 +2,7 @@ package com.example.task.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 @Entity
 @Table(name = "persons")
 public class User {
@@ -36,6 +37,14 @@ public class User {
         this.password = password;
         this.email = email;
         this.role = userRole;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getLogin() {
