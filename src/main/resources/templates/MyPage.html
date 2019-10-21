@@ -42,12 +42,16 @@
                 </tr>
         </table>
     </form>
-    <div class="alert alert-danger" role="alert" th:if="${errorMessage}" th:utext="${errorMessage}"></div>
+    <div class="alert alert-danger" role="alert" th:if="${param.addError}">This name already used</div>
+    <div class="alert alert-info" role="alert" th:if="${param.add}">The character has been added</div>
+    <div class="alert alert-info" role="alert" th:if="${param.change}">The character data has been changed</div>
+    <div class="alert alert-info" role="alert" th:if="${param.guild}">The guild has been changed</div>
+
 </div>
 <div class="container">
     <details>
         <summary>Do you want add new character?</summary>
-            <form method="post" action="MyPage/add">
+            <form method="post" th:action="@{/MyPage/add}">
                 <input type="text" name="Nickname" placeholder="Nickname" required="" autofocus="">
                 <select name="ClassName" placeholder="Archer" required="" autofocus="">
                     <option th:each="characterClass : ${characterClass}" th:utext="${characterClass}"></option>

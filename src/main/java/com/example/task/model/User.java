@@ -27,7 +27,7 @@ public class User {
     private String role;
 
     @Column
-    private String guild = "-";
+    private String guild;
 
     public User() {
     }

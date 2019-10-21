@@ -19,10 +19,12 @@ public class CharacterServiceImpl implements CharacterService {
         return characterRepository.findById(id);
     }
 
+    @Override
     public List<Character> findAll(){
         return characterRepository.findAll();
     }
 
+    @Override
     public List<Character> findAllByOwner(User user){
         return characterRepository.findAllByOwner(user);
     }
@@ -33,5 +35,9 @@ public class CharacterServiceImpl implements CharacterService {
 
     public void deleteById(long id){
         characterRepository.deleteById(id);
+    }
+
+    public List<Character> findByName(String name){
+        return characterRepository.findByName(name);
     }
 }

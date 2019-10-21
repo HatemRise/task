@@ -13,6 +13,7 @@
 <div class="container">
     <form class="form-signin" method="post" th:action="@{/login}">
         <div class="alert alert-danger" role="alert" th:if="${param.error}">Wrong username or password</div>
+        <div class="alert alert-info" role="alert" th:if="${param.logout}">You have been logout</div>
         <h2 class="form-signin-heading">Please sign in</h2>
         <p>
             <label for="username" class="sr-only">Username</label>
