@@ -2,24 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
 </head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="UTF-8">
+<title>Title</title>
 </head>
 <body style="padding: 0">
 <div class="header" style="position: relative top: 50%; background:rgba(0,0,0,0.4); text-align: center">
-    <button class="btn-lg btn-primary" type="submit" style="display: inline-block; float: left" onclick="window.location.href='/'">Main page</button>
+    <button class="btn-lg btn-primary" type="submit" style="display: inline-block; float: left"
+            onclick="window.location.href='/'">Main page
+    </button>
     <h1 th:utext="${user.login}" style="display: inline-block"></h1>
     <form th:action="@{/logout}" method="post" style="display: inline-block; float: right">
         <button class="btn-lg btn-primary" type="submit">Sign out</button>
     </form>
-    <button class="btn-lg btn-primary" type="submit" style="display: inline-block; float: right" onclick="window.location.href='/MyPage'">My page</button>
+    <button class="btn-lg btn-primary" type="submit" style="display: inline-block; float: right"
+            onclick="window.location.href='/MyPage'">My page
+    </button>
 </div>
 <div class="container">
-    <form method="post" action="edit">
+    <form method="post" th:action="@{/edit}">
         <table width="100%">
             <p>Your Characters</p>
             <tr>
@@ -30,20 +35,24 @@
                 <th>Owner</th>
                 <th>Guild</th>
             </tr>
-                <tr th:each = "character : ${character}">
-                    <td th:utext="${character.id}" ></td>
-                    <td th:utext="${character.name}"></td>
-                    <td th:utext="${character.className}"></td>
-                    <td th:utext="${character.lvl}"></td>
-                    <td th:utext="${character.owner}"></td>
-                    <td th:utext="${character.owner.guild}"></td>
-                    <td><button th:value="${character.id}" name="change" type="submit">Change</button></td>
-                    <td><button th:value="${character.id}" name="delete" type="submit">Delete</button></td>
-                </tr>
+            <tr th:each="character : ${characters}">
+                <td th:text="${character.id}"><input></td>
+                <td th:text="${character.name}"></td>
+                <td th:text="${character.className}"></td>
+                <td th:text="${character.lvl}"></td>
+                <td th:text="${character.owner}"></td>
+                <td th:text="${character.owner.guild}"></td>
+                <td>
+                    <button th:value="${character.id}" name="change" type="submit">Change</button>
+                </td>
+                <td>
+                    <button th:value="${character.id}" name="delete" type="submit">Delete</button>
+                </td>
+            </tr>
         </table>
     </form>
-    <div class="alert alert-danger" role="alert" th:if="${param.addError}">This name already used</div>
     <div class="alert alert-info" role="alert" th:if="${param.add}">The character has been added</div>
+    <div class="alert alert-info" role="alert" th:if="${param.deleted}">The character has been deleted</div>
     <div class="alert alert-info" role="alert" th:if="${param.change}">The character data has been changed</div>
     <div class="alert alert-info" role="alert" th:if="${param.guild}">The guild has been changed</div>
 
@@ -51,20 +60,24 @@
 <div class="container">
     <details>
         <summary>Do you want add new character?</summary>
-            <form method="post" th:action="@{/MyPage/add}">
-                <input type="text" name="Nickname" placeholder="Nickname" required="" autofocus="">
-                <select name="ClassName" placeholder="Archer" required="" autofocus="">
-                    <option th:each="characterClass : ${characterClass}" th:utext="${characterClass}"></option>
-                </select>
-                <input type="number" name="Level" placeholder="Level" required="" autofocus="">
-                <button type="submit">Submit</button>
-            </form>
+        <form method="post" th:action="@{/MyPage/add}" th:object="${character}">
+            <input type="text" name="name" placeholder="Nickname" required="" autofocus="">
+            <select name="ClassName" placeholder="Archer" required="" autofocus="">
+                <option th:each="characterClass : ${characterClass}" th:utext="${characterClass}"></option>
+            </select>
+            <input type="number" name="lvl" placeholder="Level" required="" autofocus="">
+            <button type="submit">Submit</button>
+        </form>
+        <div th:if="${errorMap}">
+            <div class="alert alert-danger" role="alert" th:if="${errorMap.containsKey('nameError')}">[[${errorMap.get('nameError')}]]</div>
+            <div class="alert alert-danger" role="alert" th:if="${errorMap.containsKey('lvlError')}">[[$errorMap.get('lvlError')}]]</div>
+        </div>
     </details>
     <details>
         <summary>Do you want add/change guild?</summary>
         <form method="post" action="MyPage/guild">
-            <input type="text" name="guild" placeholder="Guild" th:value="${user.guild}" required="" autofocus="">
-            <button type="submit">Submit</button>
+            <input type="text" name="guild" placeholder="Guild" th:value="${user.guild}" autofocus="">
+            <button type="submit">Change</button>
         </form>
     </details>
 </div>

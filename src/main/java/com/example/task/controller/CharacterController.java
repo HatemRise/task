@@ -26,34 +26,29 @@ public class CharacterController {
     );
 
     @GetMapping("/")
-    public String getCharacters(Model model, Authentication authentication){
+    public String getCharacters(Model model, Authentication authentication) {
         List<Character> characters = characterService.findAll();
-        if(characters.isEmpty()){
-            model.addAttribute("message", "Out of data" );
+        if (characters.isEmpty()) {
+            model.addAttribute("message", "Out of data");
         }
-        if(authentication.isAuthenticated()){
-            model.addAttribute("user", ((UserPrincipal)authentication.getPrincipal())
+        if (authentication.isAuthenticated()) {
+            model.addAttribute("user", ((UserPrincipal) authentication.getPrincipal())
                     .getUser());
         }
-        model.addAttribute("character", characters );
-        model.addAttribute("characterClass", className);
+        model.addAttribute("character", characters);
         return "characters";
     }
 
     @PostMapping("filter")
-    public String filter(@RequestParam String Nickname, Model model){
-
-        return "characters";
-    }
-    @PostMapping("delete")
-    public String deleteCharacter(@RequestParam long id, Model model){
-        characterService.deleteById(id);
-        List<Character> character = characterService.findAll();
-        if(character.isEmpty()){
-            model.addAttribute("message", "No match found");
-        }else {
-            model.addAttribute("player", character);
+    public String filter(@RequestParam String Nickname, Model model) {
+        if(Nickname.isEmpty()) {
+            return "redirect:/";
         }
-        return "redirect:/";
+        Character characters = characterService.findByName(Nickname);
+        if (characters == null) {
+            model.addAttribute("message", "No match found");
+        }
+        model.addAttribute("characters", characters);
+        return "characters";
     }
 }

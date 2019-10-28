@@ -1,6 +1,8 @@
 package com.example.task.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "characters")
@@ -9,13 +11,16 @@ public class Character {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
+    @NotBlank(message = "Name can't be blank")
+    @Size(min = 3, max = 24, message = "Name size should be between 3 and 20")
     private String name;
 
     @Column(name = "lvl")
-    private int lvl;
+    private Integer lvl;
 
     @Column(name = "class_name")
+    @NotBlank(message = "Class name can't be blank")
     private String className;
 
     @ManyToOne
@@ -26,7 +31,7 @@ public class Character {
     public Character() {
     }
 
-    public Character(Long id, String name, int lvl, User owner, String className) {
+    public Character(Long id, String name, Integer lvl, User owner, String className) {
         this.id = id;
         this.className = className;
         this.owner = owner;
@@ -50,19 +55,19 @@ public class Character {
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public int getLvl(){
+    public Integer getLvl() {
         return lvl;
     }
 
-    public void setLvl(int lvl){
+    public void setLvl(Integer lvl) {
         this.lvl = lvl;
     }
 

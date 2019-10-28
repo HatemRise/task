@@ -29,15 +29,40 @@ public class CharacterServiceImpl implements CharacterService {
         return characterRepository.findAllByOwner(user);
     }
 
+    @Override
     public void save(Character character){
         characterRepository.save(character);
     }
 
+    @Override
     public void deleteById(long id){
         characterRepository.deleteById(id);
     }
 
-    public List<Character> findByName(String name){
+    @Override
+    public Character findByName(String name){
         return characterRepository.findByName(name);
+    }
+
+    @Override
+    public boolean characterValidSave(Character character, User user){
+        if(characterRepository.findByName(character.getName()) == null){
+            character.setOwner(user);
+            save(character);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean changeCharacter(Character NewCharacterData){
+        if(characterRepository.findByName(NewCharacterData.getName()) == null) {
+            Character character = characterRepository.findById(NewCharacterData.getId());
+            character.setName(NewCharacterData.getName());
+            character.setLvl(NewCharacterData.getLvl());
+            characterRepository.save(character);
+            return true;
+        }
+        return false;
     }
 }

@@ -11,11 +11,12 @@
     <button class="btn-lg btn-primary" type="submit" style="position: relative" onclick="window.location.href='/'">Main page</button>
     <button class="btn-lg btn-primary" type="submit" style="position: relative; left: 87%" onclick="window.location.href='/MyPage'">My page</button>
 </div>
-<div class="alert alert-danger" role="alert" th:if="${param.error}">This name already used</div>
-    <form method="post" action="ok" th:each = "character : ${character}">
-        <input hidden type="number" name="Id" th:value = "${character.id}">
-        <input type="text" name="Nickname" th:value = "${character.name}">
-        <input type="number" name="Lvl" th:value = "${character.lvl}">
+<div class="alert alert-danger" role="alert" th:if="${nameError}">[[${nameError}]]</div>
+    <form method="post" action="ok" th:object="${character}">
+        <input hidden type="number" name="id" th:value = "${character.id}">
+        <input hidden type="text" name="className" th:value = "${character.className}">
+        <input type="text" name="name" th:value = "${character.name}" required="Can't be null" autofocus="" placeholder="Name">
+        <input type="number" name="lvl" th:value = "${character.lvl}" required="" autofocus="" placeholder="Level">
         <button type="submit">Change</button>
     </form>
     <button type="button" onclick="window.location.href='/MyPage'">Cancel</button>

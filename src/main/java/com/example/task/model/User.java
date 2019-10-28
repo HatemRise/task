@@ -1,7 +1,10 @@
 package com.example.task.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "persons")
@@ -12,15 +15,21 @@ public class User {
     private long id;
 
     @Column(unique = true)
-    @NotNull
+    @NotBlank(message = "Login can't be empty")
+    @Size(min = 3, max = 20, message = "Login size should be between 3 and 20")
     private String login;
 
     @Column
-    @NotNull
+    @NotBlank(message = "Password can't be empty")
+    @Size(min = 6, max = 60, message = "Password size should be between 6 and 60")
     private String password;
 
+    @Transient
+    private String passwordConfirm;
+
     @Column(unique = true)
-    @NotNull
+    @NotBlank(message = "Email can't be empty")
+    @Email(message = "Invalid email")
     private String email;
 
     @Column
@@ -93,6 +102,14 @@ public class User {
 
     public void setGuild(String guild) {
         this.guild = guild;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
     @Override

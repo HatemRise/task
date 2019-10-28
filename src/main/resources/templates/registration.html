@@ -11,20 +11,27 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-signin" method="post" th:action="@{/registration}">
-        <div class="alert alert-danger" role="alert" th:if="${message}" th:utext="${message}"></div>
+    <form class="form-signin" method="post" th:action="@{/registration}" th:object="${user}">
         <h2 class="form-signin-heading">Please sign up</h2>
         <p>
             <label for="username" class="sr-only">Username</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+            <input type="text" id="username" name="login" class="form-control" th:value="${user?.login}" placeholder="Username" required="" autofocus="">
+        <div class="alert alert-danger" role="alert" th:if="${loginError}">[[${loginError}]]</div>
         </p>
         <p>
             <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+            <input type="password" id="password" name="password" class="form-control" th:value="${user?.password}" placeholder="Password" required="">
+        <div class="alert alert-danger" role="alert" th:if="${passwordError}">[[${passwordError}]]</div>
         </p>
         <p>
             <label for="password" class="sr-only">Password</label>
-            <input type="email" id="email" name="email" class="form-control" placeholder="Email" required="">
+            <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control" th:value="${user?.passwordConfirm}" placeholder="Password Confirm" required="">
+        <div class="alert alert-danger" role="alert" th:if="${passwordConfirmError}">[[${passwordConfirmError}]]</div>
+        </p>
+        <p>
+            <label for="password" class="sr-only">Password</label>
+            <input type="email" id="email" name="email" class="form-control" th:value="${user?.email}" placeholder="Email" required="">
+        <div class="alert alert-danger" role="alert" th:if="${emailError}">[[${emailError}]]</div>
         </p>
         <input name="_csrf" type="hidden" value="bfc62bf0-2565-4ef5-8511-081dd59a4b46">
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
