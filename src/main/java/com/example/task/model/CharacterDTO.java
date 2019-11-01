@@ -64,6 +64,13 @@ public class CharacterDTO {
         this.owner = owner;
     }
 
+    public CharacterDTO(@NotNull(groups = {UpdateNameAndLvl.class, New.class}) String name, @NotNull(groups = {New.class}) String className, @NotNull Integer lvl, @Null UserDTO owner) {
+        this.name = name;
+        this.className = className;
+        this.lvl = lvl;
+        this.owner = owner;
+    }
+
     public long getId() {
         return id;
     }

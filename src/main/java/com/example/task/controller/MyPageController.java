@@ -45,7 +45,7 @@ public class MyPageController {
                 .getUser();
         List<CharacterDTO> characters = characterService.findAllDTOByOwner(user);
         if (characters.isEmpty()) {
-            model.addAttribute("errorMessage", messageSource.getMessage("characters.noCharacters", null,Locale.getDefault()));
+            model.addAttribute("errorMessage", messageSource.getMessage("characters.noCharacters", null, Locale.getDefault()));
         }
         model.addAttribute("user", new UserDTO(user));
         model.addAttribute("characters", characters);
@@ -64,14 +64,14 @@ public class MyPageController {
             errorMap = ValidateErrors.getErrors(bindingResult);
         }
         if (characterService.findByName(character.getName()) != null) {
-            errorMap.put("nameError", messageSource.getMessage("name.used", null,Locale.getDefault()));
+            errorMap.put("nameError", messageSource.getMessage("name.used", null, Locale.getDefault()));
         }
-        if(errorMap.isEmpty()) {
+        if (errorMap.isEmpty()) {
             characterService.characterValidSave(character, user);
             return new RedirectView("/MyPage?add");
-        }else{
+        } else {
             model.addAttribute("user", new UserDTO(user));
-            model.addFlashAttribute("errorMap",errorMap);
+            model.addFlashAttribute("errorMap", errorMap);
             return new RedirectView("/MyPage");
         }
     }
@@ -97,12 +97,12 @@ public class MyPageController {
         }
         if (characterService.findByName(character.getName()) != null &&
                 characterService.findByName(character.getName()).getId() != character.getId()) {
-            errorMap.put("nameError", messageSource.getMessage("name.used", null,Locale.getDefault()));
+            errorMap.put("nameError", messageSource.getMessage("name.used", null, Locale.getDefault()));
         }
-        if(errorMap.isEmpty()) {
+        if (errorMap.isEmpty()) {
             characterService.changeCharacter(character);
             return "redirect:/MyPage?change";
-        }else{
+        } else {
             model.mergeAttributes(errorMap);
             return "change";
         }

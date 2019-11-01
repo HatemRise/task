@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class CharacterServiceImpl implements CharacterService {
 
@@ -22,12 +23,12 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public List<Character> findAll(){
+    public List<Character> findAll() {
         return characterRepository.findAll();
     }
 
     @Override
-    public List<Character> findAllByOwner(User user){
+    public List<Character> findAllByOwner(User user) {
         return characterRepository.findAllByOwner(user);
     }
 
@@ -35,7 +36,7 @@ public class CharacterServiceImpl implements CharacterService {
     public List<CharacterDTO> findAllDTO() {
         List<Character> characters = findAll();
         List<CharacterDTO> characterDTOS = new ArrayList<CharacterDTO>();
-        for(Character character : characters){
+        for (Character character : characters) {
             characterDTOS.add(new CharacterDTO(character));
         }
         return characterDTOS;
@@ -45,24 +46,24 @@ public class CharacterServiceImpl implements CharacterService {
     public List<CharacterDTO> findAllDTOByOwner(User user) {
         List<Character> characters = findAllByOwner(user);
         List<CharacterDTO> characterDTOS = new ArrayList<CharacterDTO>();
-        for(Character character : characters){
+        for (Character character : characters) {
             characterDTOS.add(new CharacterDTO(character));
         }
         return characterDTOS;
     }
 
     @Override
-    public void save(Character character){
+    public void save(Character character) {
         characterRepository.save(character);
     }
 
     @Override
-    public void deleteById(long id){
+    public void deleteById(long id) {
         characterRepository.deleteById(id);
     }
 
     @Override
-    public Character findByName(String name){
+    public Character findByName(String name) {
         return characterRepository.findByName(name);
     }
 
@@ -77,19 +78,19 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public boolean characterValidSave(CharacterDTO characterDTO, User user){
-        if(characterRepository.findByName(characterDTO.getName()) == null){
+    public boolean characterValidSave(CharacterDTO characterDTO, User user) {
+        if (characterRepository.findByName(characterDTO.getName()) == null) {
             Character character = characterDTO.getCharacter(user);
             save(character);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
-    public boolean changeCharacter(CharacterDTO NewCharacterData){
-        if(characterRepository.findByName(NewCharacterData.getName()) == null) {
+    public boolean changeCharacter(CharacterDTO NewCharacterData) {
+        if (characterRepository.findByName(NewCharacterData.getName()) == null) {
             Character character = characterRepository.findById(NewCharacterData.getId());
             character.setName(NewCharacterData.getName());
             character.setLvl(NewCharacterData.getLvl());
