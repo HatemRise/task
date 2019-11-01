@@ -25,7 +25,7 @@
         </p>
         <p>
             <label for="password" class="sr-only">Password</label>
-            <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control" th:value="${user?.passwordConfirm}" placeholder="Password Confirm" required="">
+            <input type="password" id="passwordConfirm" name="confirmPassword" class="form-control" th:value="${user?.passwordConfirm}" placeholder="Password Confirm" required="">
         <div class="alert alert-danger" role="alert" th:if="${passwordConfirmError}">[[${passwordConfirmError}]]</div>
         </p>
         <p>

@@ -1,15 +1,20 @@
 package com.example.task.service;
 
 import com.example.task.model.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.example.task.model.UserDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-public interface UserService extends UserDetailsService {
+@Service
+public interface UserService {
 
     void save(User user);
 
+    void save(UserDTO userDTO);
+
     boolean changeGuild(String guild, User user);
+
+    boolean changeGuild(UserDTO userDTO);
 
     List<User> findAllByLogin(String login);
 

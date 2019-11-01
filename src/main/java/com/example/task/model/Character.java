@@ -20,7 +20,6 @@ public class Character {
     private Integer lvl;
 
     @Column(name = "class_name")
-    @NotBlank(message = "Class name can't be blank")
     private String className;
 
     @ManyToOne
@@ -39,11 +38,11 @@ public class Character {
         this.lvl = lvl;
     }
 
-    public Character(String name, int lvl, User owner, String className) {
-        this.className = className;
-        this.owner = owner;
+    public Character(String name, String className, int lvl, User owner) {
         this.name = name;
+        this.className = className;
         this.lvl = lvl;
+        this.owner = owner;
     }
 
 

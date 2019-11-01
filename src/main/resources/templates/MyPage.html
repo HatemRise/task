@@ -60,7 +60,7 @@
 <div class="container">
     <details>
         <summary>Do you want add new character?</summary>
-        <form method="post" th:action="@{/MyPage/add}" th:object="${character}">
+        <form method="post" th:action="@{/MyPage/add}" th:object="${characterDTO}">
             <input type="text" name="name" placeholder="Nickname" required="" autofocus="">
             <select name="ClassName" placeholder="Archer" required="" autofocus="">
                 <option th:each="characterClass : ${characterClass}" th:utext="${characterClass}"></option>
