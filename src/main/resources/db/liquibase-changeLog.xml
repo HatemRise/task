@@ -20,7 +20,7 @@
 
     <changeSet id="Start_character_table" author="Hate">
         <createTable tableName="characters">
-            <column name="id" type="BIGINT"><constraints nullable="false" primaryKey="true" unique="true"/></column>
+            <column name="id" type="BIGINT" autoIncrement="true"><constraints nullable="false" primaryKey="true" unique="true"/></column>
             <column name="name" type="character varying"><constraints nullable="false" unique="true"/></column>
             <column name="class_name" type="character varying"><constraints nullable="false"/></column>
             <column name="lvl" type="character varying"><constraints nullable="false"/></column>
